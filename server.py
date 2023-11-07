@@ -4,7 +4,7 @@ import pyjokes
 
 app = Flask(__name)
 
-@app.route('/api/v1/jokes', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_jokes():
     category = request.args.get('category')
     language = request.args.get('language')
