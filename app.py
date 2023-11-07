@@ -1,65 +1,40 @@
-from flask import Flask, jsonify, request, abort
-import pyjokes
+document.addEventListener("DOMContentLoaded", function() {
+    var getJokesButton = document.getElementById("getJokesButton");
+    var jokesContainer = document.getElementById("jokes-container");
 
-app = Flask(__name__)
+    getJokesButton.addEventListener("click", function() {
+        fetch("https://jokesapikellca04.onrender.com/api/v1/jokes?category=all&language=en&number=1")
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(function(jokes) {
+                displayJokes(jokes);
+            })
+            .catch(function(error) {
+                console.error("Error fetching jokes:", error);
+            });
+    });
 
+    function displayJokes(jokes) {
+        jokesContainer.innerHTML = "";
 
-categories = ["all", "neutral", "chuck"]
+        if (jokes.length === 0) {
+            jokesContainer.innerHTML = "No jokes available.";
+            return;
+        }
 
+        jokesContainer.innerHTML += "<h2>Jokes:</h2>";
 
-languages = ["en", "de", "es"]
-
-
-jokes = []
-
-
-joke_id_counter = 1
-
-
-def generate_jokes():
-    global joke_id_counter
-    for lang in languages:
-        for category in categories:
-            try:
-                joke_text = pyjokes.get_joke(language=lang, category=category)
-                jokes.append({
-                    "id": joke_id_counter,
-                    "category": category,
-                    "language": lang,
-                    "joke": joke_text
-                })
-                joke_id_counter += 1
-            except pyjokes.pyjokes.CategoryNotFoundError:
-
-                pass
-
-generate_jokes()
-
-
-@app.route('/api/v1/jokes', methods=['GET'])
-def get_jokes():
-    category = request.args.get('category')
-    language = request.args.get('language')
-    number = int(request.args.get('number', 1))
-
-    if category not in categories or language not in languages:
-        return abort(404)
-
-    matching_jokes = [joke for joke in jokes if joke["category"] == category and joke["language"] == language]
-
-    if number > len(matching_jokes):
-        return abort(404)
-
-    return jsonify(matching_jokes[:number])
-
-@app.route('/api/v1/jokes/<int:joke_id>', methods=['GET'])
-def get_joke_by_id(joke_id):
-    matching_jokes = [joke for joke in jokes if joke["id"] == joke_id]
-
-    if not matching_jokes:
-        return abort(404)
-
-    return jsonify(matching_jokes[0])
-
-if __name__ == '__main__':
-    app.run(debug=True)
+        for (var i = 0; i < jokes.length; i++) {
+            var joke = jokes[i];
+            jokesContainer.innerHTML +=
+                "<p><strong>ID:</strong> " + joke.id + "<br>" +
+                "<strong>Category:</strong> " + joke.category + "<br>" +
+                "<strong>Language:</strong> " + joke.language + "<br>" +
+                "<strong>Joke:</strong> " + joke.joke + "</p>";
+        }
+    }
+});
