@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Joke API Frontend</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Jokes API</h1>
-    <p>Click the button to get jokes:</p>
-    <button id="getJokesButton">Get Jokes</button>
-    <div id="jokes-container"></div>
+    <div class="container mt-5">
+        <h1 class="mb-4">Jokes App</h1>
+        <button id="getJokesButton" class="btn btn-primary">Get Joke</button>
+
+        <div id="jokes-container" class="mt-4"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
