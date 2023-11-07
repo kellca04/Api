@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Joke Generator</title>
-    <!-- Include Bootstrap CSS -->
+    <title>Jokes -Kellca04</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body class="container mt-4 bg-dark text-white">
@@ -27,6 +26,10 @@
     <div class="form-group">
         <label for="number" class="text-success">Number of Jokes:</label>
         <input type="number" class="form-control bg-dark text-white" id="number" min="1" max="10" value="1">
+    </div>
+    <div class="form-group">
+        <label for="jokeId" class="text-success">Joke ID:</label>
+        <input type="text" class="form-control bg-dark text-white" id="jokeId">
     </div>
     <button class="btn btn-success mt-2" id="getJokes">Get Jokes</button>
     <div id="jokes" class="mt-4"></div>
