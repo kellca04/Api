@@ -1,17 +1,58 @@
 document.addEventListener("DOMContentLoaded", function() {
     var getJokesButton = document.getElementById("getJokesButton");
+    var getRandomJokeButton = document.getElementById("getRandomJokeButton");
     var jokesContainer = document.getElementById("jokes-container");
+    var languageSelect = document.getElementById("languageSelect");
+    var categorySelect = document.getElementById("categorySelect");
+    var numberInput = document.getElementById("numberInput");
 
     getJokesButton.addEventListener("click", function() {
-        fetch("https://jokesapikellca04.onrender.com/api/v1/jokes?category=all&language=en&number=1")
+        var language = languageSelect.value;
+        var category = categorySelect.value;
+        var number = numberInput.value;
+
+        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
             .then(function(response) {
                 if (!response.ok) {
-                    throw new Error("Network response was not ok");
+                    if (response.status === 404) {
+                        jokesContainer.innerHTML = "Unrealistic selections";
+                    } else {
+                        throw new Error("Network response was not ok");
+                    }
+                } else {
+                    return response.json();
                 }
-                return response.json();
             })
             .then(function(jokes) {
-                displayJokes(jokes);
+                if (jokes) {
+                    displayJokes(jokes);
+                }
+            })
+            .catch(function(error) {
+                console.error("Error fetching jokes:", error);
+            });
+    });
+
+    getRandomJokeButton.addEventListener("click", function() {
+        var language = languageSelect.value;
+        var category = categorySelect.value;
+
+        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=1`)
+            .then(function(response) {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        jokesContainer.innerHTML = "Unrealistic selections";
+                    } else {
+                        throw new Error("Network response was not ok");
+                    }
+                } else {
+                    return response.json();
+                }
+            })
+            .then(function(jokes) {
+                if (jokes) {
+                    displayJokes(jokes);
+                }
             })
             .catch(function(error) {
                 console.error("Error fetching jokes:", error);
