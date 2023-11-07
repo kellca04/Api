@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var jokesContainer = document.getElementById("jokes-container");
 
     getJokesButton.addEventListener("click", function() {
-        fetch("https://your-flask-api-url/api/v1/jokes?category=all&language=en&number=1")
+        fetch("https://jokesapikellca04.onrender.com/api/v1/jokes?category=all&language=en&number=1")
             .then(function(response) {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
