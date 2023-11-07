@@ -1,11 +1,7 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import pyjokes
 
 app = Flask(__name)
-CORS(app) 
-
-app = Flask(__name__)
 
 # Mock database for jokes
 jokes_db = []
