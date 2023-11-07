@@ -1,40 +1,53 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 import pyjokes
 
 app = Flask(__name__)
 
-# Sample joke categories
 categories = ["all", "neutral", "chuck"]
 
-# Sample joke languages
+
 languages = ["en", "de", "es"]
 
-# Initialize an empty list to store jokes
-jokes = []
 
-# Counter to generate unique joke IDs
-joke_id_counter = 1
+jokes_dict = {}
 
-# Generate jokes and populate the jokes list
 def generate_jokes():
-    global joke_id_counter
     for lang in languages:
+        jokes_dict[lang] = {}
         for category in categories:
-            joke_text = pyjokes.get_joke(language=lang, category=category)
-            jokes.append({
-                "id": joke_id_counter,
-                "category": category,
-                "language": lang,
-                "joke": joke_text
-            })
-            joke_id_counter += 1
+            jokes_dict[lang][category] = []
+            for _ in range(10):
+                joke_text = pyjokes.get_joke(language=lang, category=category)
+                jokes_dict[lang][category].append(joke_text)
 
 generate_jokes()
 
 
-@app.route('/api/jokes', methods=['GET'])
+@app.route('/api/v1/jokes', methods=['GET'])
 def get_jokes():
-    return jsonify(jokes)
+    category = request.args.get('category')
+    language = request.args.get('language')
+    number = int(request.args.get('number', 1))
+
+    if category not in categories or language not in languages:
+        return abort(404)
+
+    jokes = jokes_dict[language][category]
+    if number > len(jokes):
+        return abort(404)
+
+    return jsonify(jokes[:number])
+
+@app.route('/api/v1/jokes/<int:joke_id>', methods=['GET'])
+def get_joke_by_id(joke_id):
+    for language in languages:
+        for category in categories:
+            jokes = jokes_dict[language][category]
+            if joke_id < len(jokes):
+                return jsonify({"id": joke_id, "category": category, "language": language, "joke": jokes[joke_id]})
+
+    return abort(404)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
