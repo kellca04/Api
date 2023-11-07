@@ -1,30 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jokes App</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Jokes - Kellca04</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body class="bg-dark text-success">
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Jokes App</h1>
 
-        <!-- User options for getting a random joke or by ID -->
-        <div class="form-group">
-            <button id="getRandomJokeButton" class="btn btn-success">Get Random Joke</button>
+<body class="container mt-4 bg-dark text-white">
+    <div class="header">
+        <h1 class="mb-4 text-success text-center">Joke Generator</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="category" class="text-success">Category:</label>
+                    <select class="form-control bg-dark text-white" id="category">
+                        <option value="all">All</option>
+                        <option value="neutral">Neutral</option>
+                        <option value="chuck">Chuck Norris</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="language" class="text-success">Language:</label>
+                    <select class="form-control bg-dark text-white" id="language">
+                        <option value="en">English</option>
+                        <option value="de">German</option>
+                        <option value="es">Spanish</option>
+                    </select>
+                </div>
+            </div>
         </div>
-
         <div class="form-group">
-            <label for="idInput" class="text-success">Get Joke by ID:</label>
-            <input type="number" id="idInput" class="form-control">
-            <button id="getJokeByIdButton" class="btn btn-success mt-3">Get by ID</button>
+            <label for="number" class="text-success">Number of Jokes:</label>
+            <input type="number" class="form-control bg-dark text-white" id="number" min="1" max="10" value="1">
         </div>
-
-        <!-- Jokes container -->
-        <div id="jokes-container" class="mt-4"></div>
+        <div class="form-group">
+            <label for="jokeId" class="text-success">Joke ID:</label>
+            <input type="text" class="form-control bg-dark text-white" id="jokeId">
+        </div>
+        <div class="text-center">
+            <button class="btn btn-success mt-2" id="getJokes">Get Jokes</button>
+            <button class="btn btn-success mt-2" id="getJokeById">Get Joke by ID</button>
+        </div>
+    </div>
+    <div class="content bg-dark p-4">
+        <div id="jokes" class="mt-4"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript to interact with the API
+        document.getElementById('getJokes').addEventListener('click', function () {
+            const category = document.getElementById('category').value;
+            const language = document.getElementById('language').value;
+            const number = document.getElementById('number').value;
+
+            fetch(`/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
+                .then(response => response.json())
+                .then(data => {
+                    const jokesDiv = document.getElementById('jokes');
+                    jokesDiv.innerHTML = JSON.stringify(data, null, 2);
+                });
+        });
+
+        document.getElementById('getJokeById').addEventListener('click', function () {
+            const category = document.getElementById('category').value;
+            const language = document.getElementById('language').value;
+            const jokeId = document.getElementById('jokeId').value;
+
+            fetch(`/api/v1/jokes/${language}/${category}/${jokeId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const jokesDiv = document.getElementById('jokes');
+                    jokesDiv.innerHTML = JSON.stringify(data, null, 2);
+                });
+        });
+    </script>
 </body>
+
 </html>
