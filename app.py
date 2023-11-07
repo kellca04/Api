@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, abort, send_from_directory
+from flask_cors import CORS  # Import CORS
 import pyjokes
 import os
 
-app = Flask(__name__)
+app = Flask(__name)
+CORS(app)  # Initialize CORS with your Flask app
 
 # Sample joke categories
 categories = ["all", "neutral", "chuck"]
@@ -36,7 +38,7 @@ def generate_jokes():
 
 generate_jokes()
 
-# Serve the favicon.ico file
+# Serve the favicon.ico file (if you have it)
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
