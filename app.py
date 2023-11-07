@@ -1,4 +1,4 @@
-# server.py
+
 from flask import Flask, request, jsonify
 import pyjokes
 import os
