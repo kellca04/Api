@@ -1,54 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joke API</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Joke API Frontend</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5">Joke API</h1>
-
-
-        <div class="form-group mt-3">
-            <label for="languageSelect">Select Language:</label>
-            <select class="form-control" id="languageSelect">
-                <option value="en">English</option>
-                <option value="de">German</option>
-                <option value="es">Spanish</option>
-            </select>
-        </div>
-
-
-        <div class="form-group mt-3">
-            <label for="categorySelect">Select Category:</label>
-            <select class="form-control" id="categorySelect">
-                <option value="all">All</option>
-                <option value="neutral">Neutral</option>
-                <option value="chuck">Chuck Norris</option>
-            </select>
-        </div>
-
-
-        <div class="form-group mt-3">
-            <label for="numberSelect">Select Number of Jokes:</label>
-            <input type="number" class="form-control" id="numberSelect" value="1" min="1" max="10">
-        </div>
-
-
-        <button class="btn btn-primary mt-3" id="getJokesButton">Get Jokes</button>
-
-
-        <div class="form-group mt-4">
-            <label for="jokeIdInput">Get a Specific Joke by ID:</label>
-            <input type="number" class="form-control" id="jokeIdInput" min="0" placeholder="Enter Joke ID">
-        </div>
-        <button class="btn btn-primary mt-3" id="getJokeByIdButton">Get Joke by ID</button>
-
-
-        <div id="jokes-container" class="mt-4"></div>
-    </div>
+    <h1>Jokes API</h1>
+    <p>Click the button to get jokes:</p>
+    <button id="getJokesButton">Get Jokes</button>
+    <div id="jokes-container"></div>
 
     <script src="script.js"></script>
 </body>
