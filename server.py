@@ -1,6 +1,9 @@
 # server.py
 from flask import Flask, request, jsonify
 import pyjokes
+import os
+os.environ['FLASK_APP'] = 'app'
+
 
 app = Flask(__name)
 
