@@ -1,17 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var getJokesButton = document.getElementById("getJokesButton");
     var getRandomJokeButton = document.getElementById("getRandomJokeButton");
-    var searchByIdButton = document.getElementById("searchByIdButton");
+    var getJokeByIdButton = document.getElementById("getJokeByIdButton");
     var jokesContainer = document.getElementById("jokes-container");
-    var languageSelect = document.getElementById("languageSelect");
-    var categorySelect = document.getElementById("categorySelect");
-    var numberInput = document.getElementById("numberInput");
     var idInput = document.getElementById("idInput");
 
-    getJokesButton.addEventListener("click", function() {
-        var language = languageSelect.value;
-        var category = categorySelect.value;
-        var number = numberInput.value;
+    getRandomJokeButton.addEventListener("click", function() {
+        var language = "en"; // Default language
+        var category = "all"; // Default category
+        var number = 1; // Default number of jokes
 
         fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
             .then(handleResponse)
@@ -20,23 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     });
 
-    getRandomJokeButton.addEventListener("click", function() {
-        var language = languageSelect.value;
-        var category = categorySelect.value;
-
-        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=1`)
-            .then(handleResponse)
-            .then(function(jokes) {
-                displayJokes(jokes);
-            });
-    });
-
-    searchByIdButton.addEventListener("click", function() {
+    getJokeByIdButton.addEventListener("click", function() {
         var id = idInput.value;
-        var language = languageSelect.value;
-        var category = categorySelect.value;
 
-        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes/${language}/${category}/${id}`)
+        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes/${id}`)
             .then(handleResponse)
             .then(function(joke) {
                 displayJokes([joke]);
@@ -68,4 +51,9 @@ document.addEventListener("DOMContentLoaded", function() {
             var joke = jokes[i];
             jokesContainer.innerHTML +=
                 "<p><strong>ID:</strong> " + joke.id + "<br>" +
-                "<strong>
+                "<strong>Category:</strong> " + joke.category + "<br>" +
+                "<strong>Language:</strong> " + joke.language + "<br>" +
+                "<strong>Joke:</strong> " + joke.joke + "</p>";
+        }
+    }
+});
