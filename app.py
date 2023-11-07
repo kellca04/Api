@@ -31,7 +31,7 @@ def generate_jokes():
 
 generate_jokes()
 
-# Route to get a list of jokes
+
 @app.route('/api/jokes', methods=['GET'])
 def get_jokes():
     return jsonify(jokes)
