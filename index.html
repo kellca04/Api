@@ -1,57 +1,55 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Jokes - Kellca04</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Joke API</h1>
 
-<body class="container mt-4 bg-dark text-white">
-    <header class="bg-dark p-4">
-        <h1 class="mb-4 text-success text-center">Joke Generator</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="category" class="text-success">Category:</label>
-                    <select class="form-control bg-dark text-white" id="category">
-                        <option value="all">All</option>
-                        <option value="neutral">Neutral</option>
-                        <option value="chuck">Chuck Norris</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for "language" class="text-success">Language:</label>
-                    <select class="form-control bg-dark text-white" id="language">
-                        <option value="en">English</option>
-                        <option value="de">German</option>
-                        <option value="es">Spanish</option>
-                    </select>
-                </div>
-            </div>
+        <!-- Language selection -->
+        <div class="form-group mt-3">
+            <label for="languageSelect">Select Language:</label>
+            <select class="form-control" id="languageSelect">
+                <option value="en">English</option>
+                <option value="de">German</option>
+                <option value="es">Spanish</option>
+            </select>
         </div>
-        <div class="form-group">
-            <label for="number" class="text-success">Number of Jokes:</label>
-            <input type="number" class="form-control bg-dark text-white" id="number" min="1" max="10" value="1">
+
+        <!-- Category selection -->
+        <div class="form-group mt-3">
+            <label for="categorySelect">Select Category:</label>
+            <select class="form-control" id="categorySelect">
+                <option value="all">All</option>
+                <option value="neutral">Neutral</option>
+                <option value="chuck">Chuck Norris</option>
+            </select>
         </div>
-        <div class="form-group">
-            <label for="jokeId" class="text-success">Joke ID:</label>
-            <input type="text" class="form-control bg-dark text-white" id="jokeId">
+
+        <!-- Number of jokes selection -->
+        <div class="form-group mt-3">
+            <label for="numberSelect">Select Number of Jokes:</label>
+            <input type="number" class="form-control" id="numberSelect" value="1" min="1" max="10">
         </div>
-        <div class="text-center">
-            <button class="btn btn-success mt-2" id="getJokes">Get Jokes</button>
+
+        <!-- Get Jokes button -->
+        <button class="btn btn-primary mt-3" id="getJokesButton">Get Jokes</button>
+
+        <!-- Specific Joke by ID -->
+        <div class="form-group mt-4">
+            <label for="jokeIdInput">Get a Specific Joke by ID:</label>
+            <input type="number" class="form-control" id="jokeIdInput" min="0" placeholder="Enter Joke ID">
         </div>
-    </header>
-    <div class="content bg-dark p-4">
-        <div id="jokes" class="mt-4"></div>
+        <button class="btn btn-primary mt-3" id="getJokeByIdButton">Get Joke by ID</button>
+
+        <!-- Jokes display -->
+        <div id="jokes-container" class="mt-4"></div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
-
 </html>
