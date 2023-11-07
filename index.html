@@ -6,13 +6,13 @@
     <title>Jokes App</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
+<body class="bg-dark text-success">
     <div class="container mt-5">
-        <h1 class="mb-4">Jokes App</h1>
+        <h1 class="text-center mb-4">Jokes App</h1>
 
         <!-- User selection for language, category, and number of jokes -->
         <div class="form-group">
-            <label for="languageSelect">Select Language:</label>
+            <label for="languageSelect" class="text-success">Select Language:</label>
             <select id="languageSelect" class="form-control">
                 <option value="en">English</option>
                 <option value="de">German</option>
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            <label for="categorySelect">Select Category:</label>
+            <label for="categorySelect" class="text-success">Select Category:</label>
             <select id="categorySelect" class="form-control">
                 <option value="all">All</option>
                 <option value="neutral">Neutral</option>
@@ -30,11 +30,11 @@
         </div>
 
         <div class="form-group">
-            <label for="numberInput">Number of Jokes:</label>
+            <label for="numberInput" class="text-success">Number of Jokes:</label>
             <input type="number" id="numberInput" class="form-control" value="1">
         </div>
 
-        <button id="getJokesButton" class="btn btn-primary mt-3">Get Jokes</button>
+        <button id="getJokesButton" class="btn btn-success mt-3">Get Jokes</button>
         <button id="getRandomJokeButton" class="btn btn-success mt-3">Get Random Joke</button>
 
         <!-- Jokes container -->
