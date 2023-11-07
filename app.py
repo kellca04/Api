@@ -1,25 +1,68 @@
+#!/usr/bin/env python3
+"""
+jokes api
+"""
 
-from flask import Flask, request, jsonify
+import json
+import random
+from typing import List
+
+import requests
+from faker import Faker
+from flask import Flask, Response, jsonify
+from flask_cors import cross_origin
 import pyjokes
-import os
-os.environ['FLASK_APP'] = 'app'
-app = Flask(__name)
 
-@app.route('/', methods=['GET'])
-def get_jokes():
-    category = request.args.get('category')
-    language = request.args.get('language')
-    number = int(request.args.get('number'))
 
-    jokes = pyjokes.get_jokes(category=[category], language=[language])
-    if not jokes:
-        return jsonify({'error': 'No jokes found for the specified category and language.'}), 404
+app = Flask(_name_)
 
-    if number > len(jokes):
-        return jsonify({'error': 'Number of jokes requested exceeds available jokes.'}), 400
+@app.route("/api/v1/jokes/<language>/<category>/<int:number>")
+def get_jokes(language, category, number):
+    if number == 1:
+        singleJoke = pyjokes.get_joke(language=language, category=category)
+        resp = jsonify(data=singleJoke)
+    else:
+        jokes = []
+        allJokes = pyjokes.get_jokes(language=language, category=category)
+        if number < len(allJokes):
 
-    random_jokes = jokes[:number]
-    return jsonify(random_jokes)
+            while len(jokes) != number:
+                jokes.append(random.choice(allJokes))
+        else:
+            #404 error
+            print()
+        
+        resp = jsonify(data=jokes)
+    
 
-if __name__ == '__main__':
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    resp.headers["Content-Type"] = "application/json"
+
+
+    return resp
+
+@app.route("/api/v1/jokes/<language>/<category>/<int:number>/<int:joke_id>")
+def get_jokeById(language, category, number, joke_id):
+    if number == 1:
+
+        singleJoke = pyjokes.get_jokes(language=language, category=category)
+        if 0 <= joke_id < len(singleJoke):
+            jokes = []
+            jokes.append(singleJoke[joke_id])
+
+        resp = jsonify(data=jokes)
+        
+    else:
+        #throw 404 error
+        print()
+    
+
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    resp.headers["Content-Type"] = "application/json"
+
+
+    return resp
+
+
+if _name_ == "_main_":
     app.run(debug=True)
