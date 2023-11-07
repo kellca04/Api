@@ -5,8 +5,6 @@ import os
 os.environ['FLASK_APP'] = 'app'
 app = Flask(__name)
 
-app = Flask(__name)
-
 @app.route('/', methods=['GET'])
 def get_jokes():
     category = request.args.get('category')
