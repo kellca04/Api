@@ -1,88 +1,44 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const getRandomBtn = document.getElementById('getRandom');
-    const getByIdBtn = document.getElementById('getById');
-    const resultDiv = document.getElementById('result');
+from flask import Flask, request, jsonify
+import pyjokes
 
-    getRandomBtn.addEventListener('click', function () {
-        const language = document.getElementById('language').value;
-        const category = document.getElementById('category').value;
-        const count = document.getElementById('count').value;
+app = Flask(__name__)
 
-        fetch(`/get_jokes?language=${language}&category=${category}&count=${count}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                resultDiv.innerHTML = JSON.stringify(data, null, 2);
-            })
-            .catch(error => {
-                resultDiv.innerHTML = 'Incorrect entries!';
-            });
-    });
+# Mock database for jokes
+jokes_db = []
 
-    getByIdBtn.addEventListener('click', function () {
-        const id = document.getElementById('jokeId').value;
-        const language = document.getElementById('language').value;
+@app.route('/get_jokes', methods=['GET'])
+def get_jokes():
+    language = request.args.get('language', 'en')
+    category = request.args.get('category', 'all')
+    count = int(request.args.get('count', 1))
 
-        fetch(`/get_joke_by_id?id=${id}&language=${language}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                resultDiv.innerHTML = JSON.stringify(data, null, 2);
-            })
-            .catch(error => {
-                resultDiv.innerHTML = 'Incorrect entries!';
-            });
-    });
-});
-document.addEventListener('DOMContentLoaded', function () {
-    const getRandomBtn = document.getElementById('getRandom');
-    const getByIdBtn = document.getElementById('getById');
-    const resultDiv = document.getElementById('result');
+    jokes = []
+    for _ in range(count):
+        joke = pyjokes.get_joke(language, category)
+        jokes.append({
+            'ID': len(jokes_db) + 1,
+            'Joke': joke,
+            'Category': category,
+            'Language': language
+        })
+        jokes_db.append(joke)
 
-    getRandomBtn.addEventListener('click', function () {
-        const language = document.getElementById('language').value;
-        const category = document.getElementById('category').value;
-        const count = document.getElementById('count').value;
+    return jsonify(jokes)
 
-        fetch(`/get_jokes?language=${language}&category=${category}&count=${count}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                resultDiv.innerHTML = JSON.stringify(data, null, 2);
-            })
-            .catch(error => {
-                resultDiv.innerHTML = 'Incorrect entries!';
-            });
-    });
+@app.route('/get_joke_by_id', methods=['GET'])
+def get_joke_by_id():
+    joke_id = int(request.args.get('id'))
+    language = request.args.get('language', 'en')
 
-    getByIdBtn.addEventListener('click', function () {
-        const id = document.getElementById('jokeId').value;
-        const language = document.getElementById('language').value;
+    if 0 < joke_id <= len(jokes_db):
+        return jsonify({
+            'ID': joke_id,
+            'Joke': jokes_db[joke_id - 1],
+            'Category': 'unknown',
+            'Language': language
+        })
+    else:
+        return jsonify({'error': 'Invalid ID'})
 
-        fetch(`/get_joke_by_id?id=${id}&language=${language}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                resultDiv.innerHTML = JSON.stringify(data, null, 2);
-            })
-            .catch(error => {
-                resultDiv.innerHTML = 'Incorrect entries!';
-            });
-    });
-});
+if __name__ == '__main__':
+    app.run()
