@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const category = document.getElementById('category').value;
         const count = document.getElementById('count').value;
 
-        fetch(`/get_jokes?language=${language}&category=${category}&count=${count}`)
+        fetch(`https://jokesapikellca04.onrender.com/get_jokes?language=${language}&category=${category}&count=${count}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const id = document.getElementById('jokeId').value;
         const language = document.getElementById('language').value;
 
-        fetch(`/get_joke_by_id?id=${id}&language=${language}`)
+        fetch(`https://jokesapikellca04.onrender.com/get_joke_by_id?id=${id}&language=${language}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw an Error('Network response was not ok');
                 }
                 return response.json();
             })
