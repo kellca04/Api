@@ -3,22 +3,35 @@ import pyjokes
 
 app = Flask(__name__)
 
+
 categories = ["all", "neutral", "chuck"]
 
 
 languages = ["en", "de", "es"]
 
 
-jokes_dict = {}
+jokes = []
+
+
+joke_id_counter = 1
+
 
 def generate_jokes():
+    global joke_id_counter
     for lang in languages:
-        jokes_dict[lang] = {}
         for category in categories:
-            jokes_dict[lang][category] = []
-            for _ in range(10):
+            try:
                 joke_text = pyjokes.get_joke(language=lang, category=category)
-                jokes_dict[lang][category].append(joke_text)
+                jokes.append({
+                    "id": joke_id_counter,
+                    "category": category,
+                    "language": lang,
+                    "joke": joke_text
+                })
+                joke_id_counter += 1
+            except pyjokes.pyjokes.CategoryNotFoundError:
+
+                pass
 
 generate_jokes()
 
@@ -32,22 +45,21 @@ def get_jokes():
     if category not in categories or language not in languages:
         return abort(404)
 
-    jokes = jokes_dict[language][category]
-    if number > len(jokes):
+    matching_jokes = [joke for joke in jokes if joke["category"] == category and joke["language"] == language]
+
+    if number > len(matching_jokes):
         return abort(404)
 
-    return jsonify(jokes[:number])
+    return jsonify(matching_jokes[:number])
 
 @app.route('/api/v1/jokes/<int:joke_id>', methods=['GET'])
 def get_joke_by_id(joke_id):
-    for language in languages:
-        for category in categories:
-            jokes = jokes_dict[language][category]
-            if joke_id < len(jokes):
-                return jsonify({"id": joke_id, "category": category, "language": language, "joke": jokes[joke_id]})
+    matching_jokes = [joke for joke in jokes if joke["id"] == joke_id]
 
-    return abort(404)
+    if not matching_jokes:
+        return abort(404)
+
+    return jsonify(matching_jokes[0])
 
 if __name__ == '__main__':
     app.run(debug=True)
-
