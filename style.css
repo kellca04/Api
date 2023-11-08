@@ -1,26 +1,27 @@
 /* styles.css */
 body {
-    background-color: #000;
-    color: #bada55; /* Purple text color */
+    background-color: #111; /* Dark background color */
+    color: #bada55; /* Light text color */
 }
 
 .container {
     margin-top: 50px;
-    text-align: center;
 }
 
 h1 {
-    font-size: 36px;
-    color: #bada55; /* Purple header text color */
+    font-size: 32px;
+    color: #bada55; /* Light header text color */
+    margin-bottom: 20px;
 }
 
 .form-group {
-    margin: 20px 0;
+    margin-bottom: 15px;
 }
 
 .btn-success {
     background-color: #800080; /* Purple button color */
     border-color: #800080;
+    color: #fff; /* White text color */
 }
 
 .btn-success:hover {
@@ -29,20 +30,22 @@ h1 {
 }
 
 select, input {
-    width: 100%;
-    background-color: #333; /* Dark background for inputs and selects */
-    color: #bada55; /* Text color for inputs and selects */
+    background-color: #222; /* Dark background for inputs and selects */
+    color: #bada55; /* Light text color for inputs and selects */
+    border: none;
 }
 
 #jokes-container {
-    margin-top: 20px;
-    background-color: #333; /* Dark background for jokes container */
+    background-color: #222; /* Dark background for jokes container */
     padding: 20px;
     border-radius: 5px;
 }
 
 p {
-    text-align: left;
-    font-size: 18px;
-    margin: 20px 0;
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.row {
+    margin-top: 20px;
 }
