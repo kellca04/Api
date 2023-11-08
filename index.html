@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Joke</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Joke Viewer</title>
 </head>
 <body>
-    <h1>Random Joke Generator</h1>
-    <button id="get-joke-button">Get Joke</button>
-    <p id="joke-text"></p>
-    <script src="script.js"></script>
+    <h1>Jokes API</h1>
+    <button onclick="getJokes()">Get Jokes</button>
+    <div id="jokes"></div>
+
+    <script>
+        function getJokes() {
+            fetch("https://jokesapikellca04.onrender.com/get_jokes")
+                .then(response => response.json())
+                .then(data => {
+                    const jokesContainer = document.getElementById("jokes");
+                    jokesContainer.innerHTML = "";
+                    
+                    if (data.length === 0) {
+                        jokesContainer.innerHTML = "<p>No jokes available</p>";
+                    } else {
+                        data.forEach(joke => {
+                            jokesContainer.innerHTML += `<p><strong>Joke #${joke.id}:</strong> ${joke.joke}</p>`;
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching jokes:", error);
+                });
+        }
+    </script>
 </body>
 </html>
