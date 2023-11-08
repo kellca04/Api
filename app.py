@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, abort, send_from_directory
 from flask_cors import CORS 
 import pyjokes
 import os
+import random
 
 app = Flask("app") 
 CORS(app) 
