@@ -1,33 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Jokes</title>
+    <title>Random Joke</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Random Jokes</h1>
-    
-    <select id="language">
-        <option value="en">English</option>
-        <option value="de">German</option>
-        <option value="es">Spanish</option>
-    </select>
-
-    <select id="category">
-        <option value="all">All</option>
-        <option value="neutral">Neutral</option>
-        <option value="chuck">Chuck Norris</option>
-    </select>
-
-    <input type="number" id="count" placeholder="Count" />
-
-    <button id="getRandom">Get Random</button>
-
-    <input type="number" id="jokeId" placeholder="Joke ID" />
-    <button id="getById">Search by ID</button>
-
-    <div id="result">
-    </div>
-
-    <script src="script.js"></script>
+    <h1>Random Joke Generator</h1>
+    <button id="get-joke-button">Get Joke</button>
+    <p id="joke-text"></p>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
