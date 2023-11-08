@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     getRandomJokeButton.addEventListener("click", function() {
         var language = languageSelect.value;
         var category = categorySelect.value;
-        var number = 1; // Default number of jokes
+        var number = 1;
 
         fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
             .then(handleResponse)
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 displayJokes(jokes);
             })
             .catch(function(error) {
-                console.error(error); // Log the error in the console
+                console.error(error);
                 jokesContainer.innerHTML = "Unrealistic selections";
             });
     });
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 displayJokes([joke]);
             })
             .catch(function(error) {
-                console.error(error); // Log the error in the console
+                console.error(error);
                 jokesContainer.innerHTML = "Unrealistic selections";
             });
     });
