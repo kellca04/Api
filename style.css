@@ -1,32 +1,21 @@
 /* custom-styles.css */
 body {
     background-color: #000; /* Black background */
-    color: #800080; /* Purple text color */
+    color: #fff; /* White text color for better contrast */
 }
 
-.btn-success {
-    background-color: #800080; /* Purple button color */
-    border-color: #800080;
+.container {
+    margin-top: 50px;
 }
 
-.btn-success:hover {
-    background-color: #4b0082; /* Darker purple on hover */
-    border-color: #4b0082;
+h1 {
+    font-size: 32px;
+    color: #fff; /* White header text color */
+    margin-bottom: 20px;
 }
 
-select, input {
-    background-color: #333; /* Dark background for inputs and selects */
-    color: #800080; /* Purple text color for inputs and selects */
-}
-
-#jokes-container {
-    background-color: #222; /* Dark background for jokes container */
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.row {
-    margin-top: 20px;
+.form-group {
+    margin-bottom: 15px;
 }
 
 .btn-success {
@@ -35,14 +24,28 @@ select, input {
     color: #fff; /* White text color */
 }
 
-.btn-success:hover {
+btn-success:hover {
     background-color: #4b0082; /* Darker purple on hover */
     border-color: #4b0082;
 }
 
-.btn-success:active,
-.btn-success:focus {
-    background-color: #800080; /* Keep the button purple when active or focused */
-    border-color: #800080;
-    color: #fff;
+select, input {
+    background-color: #333; /* Dark background for inputs and selects */
+    color: #fff; /* White text color for inputs and selects */
+    border: none;
+}
+
+#jokes-container {
+    background-color: #222; /* Dark background for jokes container */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+p {
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.row {
+    margin-top: 20px;
 }
