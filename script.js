@@ -9,15 +9,15 @@ document.addEventListener("DOMContentLoaded", function() {
     getRandomJokeButton.addEventListener("click", function() {
         var language = languageSelect.value;
         var category = categorySelect.value;
-        var number = 1;
+        var number = 1; // Default number of jokes
 
-        fetch(`/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
+        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
             .then(handleResponse)
             .then(function(jokes) {
                 displayJokes(jokes);
             })
             .catch(function(error) {
-                console.error(error);
+                console.error(error); // Log the error in the console
                 jokesContainer.innerHTML = "Unrealistic selections";
             });
     });
@@ -25,13 +25,14 @@ document.addEventListener("DOMContentLoaded", function() {
     getJokeByIdButton.addEventListener("click", function() {
         var id = idInput.value;
 
-        fetch(`/api/v1/jokes/${id}`)
+        // Always fetch the joke by ID in English
+        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes/${id}?language=en`)
             .then(handleResponse)
             .then(function(joke) {
                 displayJokes([joke]);
             })
             .catch(function(error) {
-                console.error(error);
+                console.error(error); // Log the error in the console
                 jokesContainer.innerHTML = "Unrealistic selections";
             });
     });
