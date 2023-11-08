@@ -1,15 +1,22 @@
-from flask import Flask, jsonify, request, abort, send_from_directory, session
+from flask import Flask, jsonify, request, abort, send_from_directory
 from flask_cors import CORS 
 import pyjokes
 import os
 import random
 
-app = Flask("app")
-CORS(app)
+app = Flask("app") 
+CORS(app) 
+
 
 categories = ["all", "neutral", "chuck"]
+
+
 languages = ["en", "de", "es"]
+
+
 jokes = []
+
+
 joke_id_counter = 1
 
 def generate_jokes():
@@ -30,36 +37,28 @@ def generate_jokes():
 
 generate_jokes()
 
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 @app.route('/api/v1/jokes', methods=['GET'])
-def get_random_joke():
+def get_jokes():
     category = request.args.get('category')
     language = request.args.get('language')
     number = int(request.args.get('number', 1))
 
     if category not in categories or language not in languages:
-        return abort(400) 
+        return abort(404)
 
     matching_jokes = [joke for joke in jokes if joke["category"] == category and joke["language"] == language]
 
-    if not matching_jokes:
+    if number > len(matching_jokes):
         return abort(404)
 
-    if 'joke_index' not in session:
-     
-        session['joke_index'] = -1
+    return jsonify(matching_jokes[:number])
 
-    joke_index = session['joke_index']
-
-    if joke_index == -1:
-
-        random.shuffle(matching_jokes)
-
-
-    joke_index = (joke_index + 1) % len(matching_jokes)
-    session['joke_index'] = joke_index
-    random_jokes = matching_jokes[joke_index:joke_index+number]
-
-    return jsonify(random_jokes)
 
 @app.route('/api/v1/jokes/<int:joke_id>', methods=['GET'])
 def get_joke_by_id(joke_id):
