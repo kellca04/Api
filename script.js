@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
     getJokeByIdButton.addEventListener("click", function() {
         var id = idInput.value;
 
-        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes/${id}`)
+        // Always fetch the joke by ID in English
+        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes/${id}?language=en`)
             .then(handleResponse)
             .then(function(joke) {
                 displayJokes([joke]);
