@@ -49,3 +49,8 @@ p {
 .row {
     margin-top: 20px;
 }
+.btn-success-green {
+    background-color: #008000; /* Green button color */
+    border-color: #008000;
+    color: #fff; /* White text color */
+}
