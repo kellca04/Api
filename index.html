@@ -1,33 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Joke Viewer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes API</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Jokes API</h1>
-    <button onclick="getJokes()">Get Jokes</button>
-    <div id="jokes"></div>
+    <div class="container mt-5">
+        <h1>Jokes API</h1>
+        <div class="form-group">
+            <label for="languageSelect">Select Language:</label>
+            <select id="languageSelect" class="form-control">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <!-- Add more language options here -->
+            </select>
+        </div>
 
-    <script>
-        function getJokes() {
-            fetch("https://jokesapikellca04.onrender.com/get_jokes")
-                .then(response => response.json())
-                .then(data => {
-                    const jokesContainer = document.getElementById("jokes");
-                    jokesContainer.innerHTML = "";
-                    
-                    if (data.length === 0) {
-                        jokesContainer.innerHTML = "<p>No jokes available</p>";
-                    } else {
-                        data.forEach(joke => {
-                            jokesContainer.innerHTML += `<p><strong>Joke #${joke.id}:</strong> ${joke.joke}</p>`;
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching jokes:", error);
-                });
-        }
-    </script>
+        <div class="form-group">
+            <label for="categorySelect">Select Category:</label>
+            <select id="categorySelect" class="form-control">
+                <option value="neutral">Neutral</option>
+                <option value="chuck">Chuck Norris</option>
+                <!-- Add more category options here -->
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="numberInput">Number of Jokes:</label>
+            <input type="number" id="numberInput" class="form-control" value="1" min="1">
+        </div>
+
+        <div class="form-group">
+            <button id="getJokesButton" class="btn btn-primary">Get Jokes</button>
+        </div>
+
+        <div class="form-group">
+            <label for="jokeIdInput">Joke ID (for specific joke):</label>
+            <input type="number" id="jokeIdInput" class="form-control" min="0">
+        </div>
+
+        <div class="form-group">
+            <button id="getJokeByIdButton" class="btn btn-primary">Get Joke by ID</button>
+        </div>
+
+        <div id="jokesOutput" class="mt-4">
+            <!-- Jokes will be displayed here -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
