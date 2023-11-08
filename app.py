@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS  # Import CORS from flask_cors
 import pyjokes
 
-app = Flask(__name)
+app = Flask(__name__)
 CORS(app)  # Enable CORS for your Flask app
 
 # Initialize an empty list to store jokes
