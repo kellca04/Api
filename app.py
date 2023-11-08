@@ -1,68 +1,74 @@
-#!/usr/bin/env python3
-"""
-jokes api
-"""
-
-import json
-import random
-from typing import List
-
-import requests
-from faker import Faker
-from flask import Flask, Response, jsonify
-from flask_cors import cross_origin
+from flask import Flask, jsonify, request, abort, send_from_directory
+from flask_cors import CORS  # Import CORS
 import pyjokes
+import os
 
+app = Flask("your-flask-app")  # Use a fixed app name
+CORS(app)  # Initialize CORS with your Flask app
 
-app = Flask(_name_)
+# Sample joke categories
+categories = ["all", "neutral", "chuck"]
 
-@app.route("/api/v1/jokes/<language>/<category>/<int:number>")
-def get_jokes(language, category, number):
-    if number == 1:
-        singleJoke = pyjokes.get_joke(language=language, category=category)
-        resp = jsonify(data=singleJoke)
-    else:
-        jokes = []
-        allJokes = pyjokes.get_jokes(language=language, category=category)
-        if number < len(allJokes):
+# Sample joke languages
+languages = ["en", "de", "es"]
 
-            while len(jokes) != number:
-                jokes.append(random.choice(allJokes))
-        else:
-            #404 error
-            print()
-        
-        resp = jsonify(data=jokes)
-    
+# Initialize an empty list to store jokes
+jokes = []
 
-    resp.headers["Access-Control-Allow-Origin"] = "*"
-    resp.headers["Content-Type"] = "application/json"
+# Counter to generate unique joke IDs
+joke_id_counter = 1
 
+# Generate jokes and populate the jokes list
+def generate_jokes():
+    global joke_id_counter
+    for lang in languages:
+        for category in categories:
+            try:
+                joke_text = pyjokes.get_joke(language=lang, category=category)
+                jokes.append({
+                    "id": joke_id_counter,
+                    "category": category,
+                    "language": lang,
+                    "joke": joke_text
+                })
+                joke_id_counter += 1
+            except pyjokes.pyjokes.CategoryNotFoundError:
+                # Handle unsupported category and language combination
+                pass
 
-    return resp
+generate_jokes()
 
-@app.route("/api/v1/jokes/<language>/<category>/<int:number>/<int:joke_id>")
-def get_jokeById(language, category, number, joke_id):
-    if number == 1:
+# Serve the favicon.ico file (if you have it)
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-        singleJoke = pyjokes.get_jokes(language=language, category=category)
-        if 0 <= joke_id < len(singleJoke):
-            jokes = []
-            jokes.append(singleJoke[joke_id])
+# Route to get jokes by category, language, and number
+@app.route('/api/v1/jokes', methods=['GET'])
+def get_jokes():
+    category = request.args.get('category')
+    language = request.args.get('language')
+    number = int(request.args.get('number', 1))
 
-        resp = jsonify(data=jokes)
-        
-    else:
-        #throw 404 error
-        print()
-    
+    if category not in categories or language not in languages:
+        return abort(404)
 
-    resp.headers["Access-Control-Allow-Origin"] = "*"
-    resp.headers["Content-Type"] = "application/json"
+    matching_jokes = [joke for joke in jokes if joke["category"] == category and joke["language"] == language]
 
+    if number > len(matching_jokes):
+        return abort(404)
 
-    return resp
+    return jsonify(matching_jokes[:number])
 
+# Route to get a specific joke by ID
+@app.route('/api/v1/jokes/<int:joke_id>', methods=['GET'])
+def get_joke_by_id(joke_id):
+    matching_jokes = [joke for joke in jokes if joke["id"] == joke_id]
 
-if _name_ == "_main_":
+    if not matching_jokes:
+        return abort(404)
+
+    return jsonify(matching_jokes[0])
+
+if __name__ == '__main__':
     app.run(debug=True)
