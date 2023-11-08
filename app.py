@@ -3,7 +3,7 @@ from flask_cors import CORS  # Import CORS
 import pyjokes
 import os
 
-app = Flask("your-flask-app")  # Use a fixed app name
+app = Flask("app")  # Use a fixed app name
 CORS(app)  # Initialize CORS with your Flask app
 
 # Sample joke categories
