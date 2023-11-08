@@ -9,9 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
     getRandomJokeButton.addEventListener("click", function() {
         var language = languageSelect.value;
         var category = categorySelect.value;
-        var number = 1;
 
-        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
+        fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}`)
             .then(handleResponse)
             .then(function(jokes) {
                 displayJokes(jokes);
