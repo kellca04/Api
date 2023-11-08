@@ -1,7 +1,7 @@
-/* custom-styles.css */
+
 body {
-    background-color: #000; /* Black background */
-    color: #fff; /* White text color for better contrast */
+    background-color: #000;
+    color: #fff;
 }
 
 .container {
@@ -10,7 +10,7 @@ body {
 
 h1 {
     font-size: 32px;
-    color: #fff; /* White header text color */
+    color: #fff; 
     margin-bottom: 20px;
 }
 
@@ -19,24 +19,24 @@ h1 {
 }
 
 .btn-success {
-    background-color: #800080; /* Purple button color */
-    border-color: #800080;
-    color: #fff; /* White text color */
+    background-color: #800080;
+    border-color:
+    color: #fff;
 }
 
 btn-success:hover {
-    background-color: #4b0082; /* Darker purple on hover */
+    background-color: #4b0082;
     border-color: #4b0082;
 }
 
 select, input {
-    background-color: #333; /* Dark background for inputs and selects */
-    color: #fff; /* White text color for inputs and selects */
+    background-color: #333;
+    color: #fff; 
     border: none;
 }
 
 #jokes-container {
-    background-color: #222; /* Dark background for jokes container */
+    background-color: #222; 
     padding: 20px;
     border-radius: 5px;
 }
@@ -50,7 +50,7 @@ p {
     margin-top: 20px;
 }
 .btn-success-green {
-    background-color: #008000; /* Green button color */
+    background-color: #008000; 
     border-color: #008000;
-    color: #fff; /* White text color */
+    color: #fff; 
 }
