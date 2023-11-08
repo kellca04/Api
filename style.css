@@ -1,0 +1,44 @@
+body {
+    background-color: #343a40;
+    color: #17a2b8;
+}
+
+.container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+select, input {
+    width: 100%;
+}
+
+#jokes-container {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+p {
+    text-align: left;
+    font-size: 18px;
+    margin: 20px 0;
+}
