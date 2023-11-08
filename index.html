@@ -10,6 +10,25 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Jokes App</h1>
 
+        <!-- Language and Category selection -->
+        <div class="form-group">
+            <label for="languageSelect" class="text-success">Select Language:</label>
+            <select id="languageSelect" class="form-control">
+                <option value="en">English</option>
+                <option value="de">German</option>
+                <option value="es">Spanish</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="categorySelect" class="text-success">Select Category:</label>
+            <select id="categorySelect" class="form-control">
+                <option value="all">All</option>
+                <option value="neutral">Neutral</option>
+                <option value="chuck">Chuck Norris</option>
+            </select>
+        </div>
+
         <!-- User options for getting a random joke or by ID -->
         <div class="form-group">
             <button id="getRandomJokeButton" class="btn btn-success">Get Random Joke</button>
