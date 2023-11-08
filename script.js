@@ -3,10 +3,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var getJokeByIdButton = document.getElementById("getJokeByIdButton");
     var jokesContainer = document.getElementById("jokes-container");
     var idInput = document.getElementById("idInput");
+    var languageSelect = document.getElementById("languageSelect");
+    var categorySelect = document.getElementById("categorySelect");
 
     getRandomJokeButton.addEventListener("click", function() {
-        var language = "en"; // Default language
-        var category = "all"; // Default category
+        var language = languageSelect.value;
+        var category = categorySelect.value;
         var number = 1; // Default number of jokes
 
         fetch(`https://jokesapikellca04.onrender.com/api/v1/jokes?category=${category}&language=${language}&number=${number}`)
