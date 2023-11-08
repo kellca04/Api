@@ -1,7 +1,7 @@
-/* styles.css */
+/* custom-styles.css */
 body {
-    background-color: #111; /* Dark background color */
-    color: #bada55; /* Light text color */
+    background-color: #000; /* Black background */
+    color: #800080; /* Purple text color */
 }
 
 .container {
@@ -10,7 +10,7 @@ body {
 
 h1 {
     font-size: 32px;
-    color: #bada55; /* Light header text color */
+    color: #800080; /* Purple header text color */
     margin-bottom: 20px;
 }
 
@@ -30,8 +30,8 @@ h1 {
 }
 
 select, input {
-    background-color: #222; /* Dark background for inputs and selects */
-    color: #bada55; /* Light text color for inputs and selects */
+    background-color: #333; /* Dark background for inputs and selects */
+    color: #800080; /* Purple text color for inputs and selects */
     border: none;
 }
 
