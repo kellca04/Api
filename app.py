@@ -1,16 +1,23 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, jsonify
 import pyjokes
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# Initialize an empty list to store jokes
+jokes_list = []
 
-@app.route('/get_joke', methods=['GET'])
-def get_joke():
+# Endpoint to add a new joke
+@app.route('/add_joke', methods=['POST'])
+def add_joke():
     joke = pyjokes.get_joke()
-    return jsonify({'joke': joke})
+    joke_id = len(jokes_list) + 1
+    jokes_list.append({"id": joke_id, "joke": joke})
+    return jsonify({"message": "Joke added successfully", "joke_id": joke_id})
+
+# Endpoint to retrieve all jokes
+@app.route('/get_jokes', methods=['GET'])
+def get_jokes():
+    return jsonify(jokes_list)
 
 if __name__ == '__main__':
     app.run(debug=True)
