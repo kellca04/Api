@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(handleResponse)
             .then(function(jokes) {
                 displayJokes(jokes);
+            })
+            .catch(function(error) {
+                console.error(error); // Log the error in the console
+                jokesContainer.innerHTML = "Unrealistic selections";
             });
     });
 
@@ -26,15 +30,19 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(handleResponse)
             .then(function(joke) {
                 displayJokes([joke]);
+            })
+            .catch(function(error) {
+                console.error(error); // Log the error in the console
+                jokesContainer.innerHTML = "Unrealistic selections";
             });
     });
 
     function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 404) {
-                jokesContainer.innerHTML = "Unrealistic selections";
+                return Promise.reject("Unrealistic selections");
             } else {
-                throw new Error("Network response was not ok");
+                return Promise.reject("Network response was not ok");
             }
         }
         return response.json();
