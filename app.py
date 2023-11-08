@@ -1,11 +1,10 @@
-from flask import Flask, jsonify
-from flask_cors import CORS  # Import CORS from flask_cors
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 import pyjokes
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for your Flask app
+CORS(app)
 
-# Initialize an empty list to store jokes
 jokes_list = []
 
 # Endpoint to add a new joke
