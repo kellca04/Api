@@ -4,24 +4,9 @@ body {
     color: #800080; /* Purple text color */
 }
 
-.container {
-    margin-top: 50px;
-}
-
-h1 {
-    font-size: 32px;
-    color: #800080; /* Purple header text color */
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
 .btn-success {
     background-color: #800080; /* Purple button color */
     border-color: #800080;
-    color: #fff; /* White text color */
 }
 
 .btn-success:hover {
@@ -32,18 +17,12 @@ h1 {
 select, input {
     background-color: #333; /* Dark background for inputs and selects */
     color: #800080; /* Purple text color for inputs and selects */
-    border: none;
 }
 
 #jokes-container {
     background-color: #222; /* Dark background for jokes container */
     padding: 20px;
     border-radius: 5px;
-}
-
-p {
-    font-size: 16px;
-    margin: 15px 0;
 }
 
 .row {
