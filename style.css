@@ -28,3 +28,21 @@ select, input {
 .row {
     margin-top: 20px;
 }
+
+.btn-success {
+    background-color: #800080; /* Purple button color */
+    border-color: #800080;
+    color: #fff; /* White text color */
+}
+
+.btn-success:hover {
+    background-color: #4b0082; /* Darker purple on hover */
+    border-color: #4b0082;
+}
+
+.btn-success:active,
+.btn-success:focus {
+    background-color: #800080; /* Keep the button purple when active or focused */
+    border-color: #800080;
+    color: #fff;
+}
